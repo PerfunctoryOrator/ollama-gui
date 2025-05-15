@@ -1,0 +1,201 @@
+:root {
+    --active-color: rgb(42, 100, 227);
+    --dark-gray: rgb(40, 40, 40);
+
+    --color: var(--dark-gray);
+    --background-color: whitesmoke;
+    --contrast-background-color: white;
+    --active-color: rgb(42, 100, 227);
+    --active-background-color: rgba(0, 0, 0, 0.05);
+    --danger-color: rgb(255, 107, 107);
+    --border-color: gainsboro;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --font-family: system-ui, sans-serif;
+
+    --emphasis-animation: linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%);
+}
+p {
+    margin: 0;
+}
+code {
+    font-family: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro","Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+}
+pre {
+    font-family: var(--font-family);
+    border: 2px solid gainsboro;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 8px 0;
+    border-radius: 8px;
+    &::before {
+        content: attr(data-heading);
+        padding: 8px;
+        border-bottom: 2px solid gainsboro;
+        background-color: var(--active-background-color);
+    }
+    & > code {
+        padding: 8px;
+        max-height: 16em;
+        overflow: scroll auto;
+    }
+}
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    line-height: 1.5em;
+    color: var(--color);
+    display: flex;
+}
+button {
+    font-family: var(--font-family);
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: 8px 0;
+    fill: var(--color);
+    color: var(--color);
+    font-size: 16px;
+    width: min-content;
+    background-color: transparent;
+    border-radius: 8px;
+    border: none;
+    &:hover, &:focus-visible {
+        fill: var(--active-color);
+        color: var(--active-color);
+        background-color: var(--active-background-color);
+    }
+    &:focus-visible {
+        outline: 2px solid var(--active-color);
+    }
+    & > svg {
+        margin-right: 8px;
+    }
+}
+
+/* Sidebar */
+#sidebar {
+    width: 15%;
+    border-right: 2px solid gainsboro;
+    padding: 8px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: sticky;
+    top: 0;
+    box-sizing: border-box;
+}
+#sidebar > button {
+    width: 100%;
+}
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Conversation area */
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    & > * {
+        width: 60vw;
+        align-self: center;
+    }
+    overflow: auto;
+}
+#chat-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+#prompt-input-area {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding-top: 8px;
+    box-shadow: 0 -8px 16px 16px white;
+}
+#prompt-input {
+    border: 2px solid gainsboro;
+    overflow: auto;
+    max-height: 200px;
+    font-size: 16px;
+    background-color: whitesmoke;
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+    resize: none;
+    box-sizing: border-box;
+    &:focus {
+        border: 2px solid var(--active-color);
+        outline: none;
+    }
+    &::placeholder {
+        font-style: italic;
+        color: darkgray;
+    }
+}
+
+
+
+/* Message styles */
+#chat-box > div {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    margin-top: 16px;
+    max-width: 75%;
+    &.sent {
+        text-align: right;
+        margin-bottom: 10px;
+        align-self: flex-end;
+        animation: send 0.3s var(--emphasis-animation);
+        display: inline-block;
+        border-radius: 8px;
+        padding: 8px;
+        background-color: var(--active-background-color);
+    }
+    &.received, &.system {
+        margin-left: 16px;
+        opacity: 0;
+        animation: receive 0.3s var(--emphasis-animation) forwards;
+        animation-delay: 0.3s;
+    }
+}
+/* &.message-user-id {
+    font-size: 12px;
+    font-style: italic;
+    color: darkgray;
+}
+&.message-time {
+    font-size: 12px;
+    font-style: italic;
+    color: darkgray;
+} */
+
+@keyframes send {
+    from {
+        opacity: 0;
+        transform: translateX(32px);
+    }
+}
+@keyframes receive {
+    from {
+        opacity: 0;
+        transform: translateX(-32px);
+    }
+    to {
+        opacity: 1;
+    }
+}

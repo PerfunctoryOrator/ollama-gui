@@ -92,8 +92,11 @@ const chatBox = document.getElementById("chat-box");
 const mainView = document.querySelector("main");
 
 messageInputBox.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && (event.metaKey || event.ctrlKey) && messageInputBox.value.trim() ) {
+    if (event.key === "Enter" && (event.metaKey || event.ctrlKey) && messageInputBox.value.trim()) {
         event.preventDefault();
         sendPrompt();
+    } else if (event.key === "Tab" && (event.altKey || event.shiftKey)) {
+        event.preventDefault();
+        messageInputBox.value += "\t";
     }
 });
